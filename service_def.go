@@ -52,6 +52,8 @@ type Service interface {
 	TradeWebsocket(twr TradeWebsocketRequest) (chan *AggTradeEvent, chan struct{}, error)
 	UserDataWebsocket(udwr UserDataWebsocketRequest) (chan *AccountEvent, chan struct{}, error)
 	OrderBookWebsocket(obr OrderBookRequest) (chan *OrderBook, chan struct{}, error)
+	DepthWebsocketLevel(dwr DepthWebsocketRequestLevel) (chan *DepthLevelEvent, chan struct{}, error)
+	DepthWebsocketStream(dwr DepthWebsocketRequestStream) (chan *DepthStreamEvent, chan struct{}, error)
 }
 
 type apiService struct {
@@ -84,7 +86,10 @@ func NewAPIService(url, apiKey string, signer Signer, logger log.Logger, ctx con
 
 func (as *apiService) request(method string, endpoint string, params map[string]string,
 	apiKey bool, sign bool) (*http.Response, error) {
-	transport := &http.Transport{}
+	transport := &http.Transport{
+		Proxy: http.ProxyFromEnvironment,
+		ResponseHeaderTimeout: time.Second * 30,
+	}
 	client := &http.Client{
 		Transport: transport,
 	}

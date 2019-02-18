@@ -76,6 +76,9 @@ type Binance interface {
 	TradeWebsocket(twr TradeWebsocketRequest) (chan *AggTradeEvent, chan struct{}, error)
 	UserDataWebsocket(udwr UserDataWebsocketRequest) (chan *AccountEvent, chan struct{}, error)
 	OrderBookWebsocket(obr OrderBookRequest) (chan *OrderBook, chan struct{}, error)
+
+	DepthWebsocketLevel(dwr DepthWebsocketRequestLevel) (chan *DepthLevelEvent, chan struct{}, error)
+	DepthWebsocketStream(dwr DepthWebsocketRequestStream) (chan *DepthStreamEvent, chan struct{}, error)
 }
 
 type binance struct {
