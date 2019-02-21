@@ -744,6 +744,7 @@ func (as *apiService) UserDataWebsocket(urwr UserDataWebsocketRequest) (chan *Ac
 							Symbol:        rawOrderUpdate.Symbol,
 							OrderID:       rawOrderUpdate.OrderID,
 							ClientOrderID: rawOrderUpdate.ClientOrderID,
+							OriginalClientOrderID: rawOrderUpdate.OriginalClientOrderID,
 							Price:         price,
 							OrigQty:       origQty,
 							ExecutedQty:   execQty,

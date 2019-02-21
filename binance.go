@@ -419,6 +419,7 @@ type ExecutedOrder struct {
 	Symbol        string
 	OrderID       int64
 	ClientOrderID string
+	OriginalClientOrderID string
 	Price         float64
 	OrigQty       float64
 	ExecutedQty   float64
